@@ -1,7 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
 import os
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,12 +10,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-((xa-yi(epzr!i!c@&pv6@ai#6=%+gsz(82fa5-gb17+1$^d+$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ['*']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -94,11 +93,6 @@ DATABASES = {
     }
 }
 
-database_url =os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
-
-# 'postgresql://ivy_league_db_user:mNtlFHbkcxnm8zz6GMsPjtEeSRru3Rak@dpg-csv6j9jtq21c73eknsj0-a.oregon-postgres.render.com/ivy_league_db'
-
 
 
 
@@ -157,5 +151,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
 ]
-
-# Deploy
