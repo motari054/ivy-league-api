@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,7 +94,7 @@ DATABASES = {
     }
 }
 
-
+DATABASES["default"] = dj_database_url.parse("postgresql://ivy_league_db_user:mNtlFHbkcxnm8zz6GMsPjtEeSRru3Rak@dpg-csv6j9jtq21c73eknsj0-a.oregon-postgres.render.com/ivy_league_db")
 
 
 # Password validation
