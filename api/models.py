@@ -38,7 +38,7 @@ class Product(models.Model):
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='products')
     price = models.IntegerField()
     rating = models.DecimalField(max_digits=3, decimal_places=1)
-    image = models.ImageField(default='product.webp', upload_to='products/')
+    image = models.ImageField(default='product.webp', upload_to='images/')
     quantity = models.IntegerField(default=0)
     added_at = models.DateTimeField(auto_now=True)
     sold = models.BooleanField(default=False)

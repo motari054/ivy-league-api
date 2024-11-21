@@ -2,6 +2,10 @@ from pathlib import Path
 from datetime import timedelta
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,7 +141,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-MEDIA_URL = '/images/'
+MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static/'
@@ -146,7 +150,16 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = BASE_DIR / 'static/images'
 
 # Static files storage
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': "dkqmlhlhb",
+    'API_KEY': "292142139521818",
+    'API_SECRET': 'YWxGAOGDgsG0nOlKtAZU0emZ_Vw',
+}
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
