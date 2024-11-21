@@ -36,7 +36,7 @@ class Product(models.Model):
     details = models.TextField()
     how_to_use = models.TextField()
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='products')
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.IntegerField()
     rating = models.DecimalField(max_digits=3, decimal_places=1)
     image = models.ImageField(default='product.webp', upload_to='products/')
     quantity = models.IntegerField(default=0)
