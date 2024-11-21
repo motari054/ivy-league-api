@@ -150,5 +150,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    'https://ivy-league.netlify.app/',
+    'https://ivy-league.netlify.app',
 ]
