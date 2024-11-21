@@ -136,26 +136,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-MEDIA_URL = '/media/'
+MEDIA_URL = '/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static/'
 ]
 
-MEDIA_ROOT = BASE_DIR / 'static/images'
+MEDIA_ROOT = None
 
 # Static files storage
+
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': "dkqmlhlhb",
     'API_KEY': "292142139521818",
-    'API_SECRET': 'YWxGAOGDgsG0nOlKtAZU0emZ_Vw',
+    'API_SECRET': "YWxGAOGDgsG0nOlKtAZU0emZ_Vw",
 }
 
 
