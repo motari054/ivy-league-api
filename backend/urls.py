@@ -13,6 +13,9 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='refresh_token'),
     path('auth/', include('rest_framework.urls')),
     path('', include('api.urls')),
+    path('mpesa/', include('Mpesa.urls')),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

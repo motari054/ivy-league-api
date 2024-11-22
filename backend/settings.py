@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'api',
     'authentication',
     'corsheaders',
+    'Mpesa',
 ]
 
 MIDDLEWARE = [
@@ -143,13 +144,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static/'
 ]
 
-MEDIA_ROOT = None
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Static files storage
 
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 
