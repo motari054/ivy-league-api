@@ -4,7 +4,6 @@ from . import views
 test_patterns = [
     path('', views.index),
     path('oauth/success', views.oauth_success),
-    path('stk-push/success', views.stk_push_success),
 ]
 
 urlpatterns = [
