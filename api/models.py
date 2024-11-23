@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=100, null=True)
@@ -38,7 +39,7 @@ class Product(models.Model):
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='products')
     price = models.IntegerField()
     rating = models.DecimalField(max_digits=3, decimal_places=1)
-    image = models.ImageField(default='product.webp', upload_to='images/')
+    image = CloudinaryField('image')
     quantity = models.IntegerField(default=0)
     added_at = models.DateTimeField(auto_now=True)
     sold = models.BooleanField(default=False)

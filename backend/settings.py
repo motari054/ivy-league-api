@@ -144,7 +144,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static/'
 ]
 
-MEDIA_ROOT = None
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Static files storage
 
