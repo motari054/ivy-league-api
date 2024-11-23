@@ -6,6 +6,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from dotenv import load_dotenv
+from cloudinary.utils import cloudinary_url
 
 load_dotenv()
 
@@ -155,13 +156,12 @@ STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'default_cloud_name'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY', 'default_api_key'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'default_api_secret'),
-}
+cloudinary.config( 
+    cloud_name = "dkqmlhlhb", 
+    api_key = "292142139521818", 
+    api_secret = "YWxGAOGDgsG0nOlKtAZU0emZ_Vw",
+    secure=True
+)
 
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
