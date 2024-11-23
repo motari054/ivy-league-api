@@ -52,6 +52,8 @@ class DeliveryOptions(models.Model):
     price= models.IntegerField()
 
     def __str__(self):
-        return self.label
+        return f"{self.label} - Ksh.{self.price}"
     
-    
+    class Meta:
+        verbose_name = "Delivery Option"
+        verbose_name_plural = "Delivery Options"
