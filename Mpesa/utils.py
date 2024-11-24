@@ -63,7 +63,6 @@ def api_base_url():
     else:
         raise MpesaConfigurationException('Mpesa environment not configured properly - MPESA_ENVIRONMENT should be sandbox or production')
 
-
 def generate_access_token_request(consumer_key=None, consumer_secret=None):
     url = api_base_url() + 'oauth/v1/generate?grant_type=client_credentials'
     consumer_key = consumer_key if consumer_key is not None else mpesa_config('MPESA_CONSUMER_KEY') 

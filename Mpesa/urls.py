@@ -8,5 +8,6 @@ test_patterns = [
 
 urlpatterns = [
     path('', views.PaymentView.as_view()),
+    path('callback/', views.MpesaCallbackView.as_view()),
     path('tests/', include(test_patterns)),
 ]
