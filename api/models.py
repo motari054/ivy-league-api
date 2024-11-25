@@ -43,7 +43,7 @@ class Product(models.Model):
     quantity = models.IntegerField(default=0)
     added_at = models.DateTimeField(auto_now=True)
     sold = models.BooleanField(default=False)
-    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, related_name='products')
 
     def __str__(self):
         return self.name
