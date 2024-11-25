@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=100, null=True)
@@ -34,16 +35,16 @@ class Brand(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    details = models.TextField()
-    how_to_use = models.TextField()
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, related_name='products')
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='products')
     price = models.IntegerField()
-    rating = models.DecimalField(max_digits=3, decimal_places=1)
-    image = CloudinaryField('image')
     quantity = models.IntegerField(default=0)
+    details = models.TextField()
+    how_to_use = models.TextField()
+    rating = models.DecimalField(max_digits=3, decimal_places=1, default=4, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    image = CloudinaryField('image')
     added_at = models.DateTimeField(auto_now=True)
     sold = models.BooleanField(default=False)
-    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, related_name='products')
 
     def __str__(self):
         return self.name
