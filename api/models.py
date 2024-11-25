@@ -58,3 +58,20 @@ class DeliveryOptions(models.Model):
     class Meta:
         verbose_name = "Delivery Option"
         verbose_name_plural = "Delivery Options"
+
+class Deliveries(models.Model):
+    customer_name = models.CharField(max_length=200)
+    primary_number = models.IntegerField()
+    secondary_number = models.IntegerField(null=True, blank=True)
+    address = models.CharField(max_length=250)
+    town = models.CharField(max_length=200)
+    amount_paid = models.IntegerField()
+    mpesa_transaction_code = models.CharField(max_length=200)
+    delivery_status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.customer_name} - {self.town}"
+    
+    class Meta:
+        verbose_name = 'Delivery'
+        verbose_name_plural = "Deliveries"

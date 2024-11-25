@@ -31,7 +31,7 @@ class PaymentView(APIView):
         data = request.data
         phone_number = data.get('phoneNumber')
         amount = data.get('amount')
-        account_reference = data.get('accountReference', 'Ivy League Beauty')
+        account_reference = data.get('accountReference', 'The Ivy League Beauty Shop')
         transaction_desc = data.get('transactionDesc', 'Payment for Beauty Products')
         callback_url = data.get('callbackUrl', stk_push_callback_url)
 
