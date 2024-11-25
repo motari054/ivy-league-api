@@ -6,6 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Product, Categories, Brand, DeliveryOptions
 from django.db.models import Q
 from .serializers import ProductSerializer, CategoriesSerializer, UserSerializer, BrandsSerializer, DeliveryOptionsSerializer
+import random
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -59,6 +60,19 @@ class ProductDetail(APIView):
     def get(self, request, pk):
         product = self.get_product(pk)
         serializer = ProductSerializer(product)
+        return Response(serializer.data)
+    
+class PromotionalProductsView(APIView):
+    def get(self, request):
+        promotional_products = Product.objects.filter(quantity__gt=0) \
+            .order_by('-rating', 'quantity')[:4]
+        
+        if not promotional_products:
+            all_products = list(Product.objects.all())
+            promotional_products = random.sample(all_products, min(4, len(all_products)))
+
+        serializer = ProductSerializer(promotional_products, many=True)
+        
         return Response(serializer.data)
 
 class CategoriesList(APIView):
