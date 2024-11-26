@@ -11,4 +11,5 @@ urlpatterns = [
     path("new/", views.NewProducts.as_view()),
     path("delivery-options/", views.DeliveryOptionsView.as_view()),
     path("promotional/", views.PromotionalProductsView.as_view()),
+    path("hero/", views.HeroView.as_view())
 ]

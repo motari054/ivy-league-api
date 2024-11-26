@@ -96,3 +96,10 @@ class Hero(models.Model):
     image = CloudinaryField("image")
     title = models.CharField(max_length=100)
     sub_title = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Hero"
+        verbose_name_plural = "Hero"
+
+    def __str__(self):
+        return self.title
