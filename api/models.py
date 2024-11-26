@@ -91,3 +91,8 @@ class Deliveries(models.Model):
     class Meta:
         verbose_name = "Delivery"
         verbose_name_plural = "Deliveries"
+
+class Hero(models.Model):
+    image = CloudinaryField("image")
+    title = models.CharField(max_length=100)
+    sub_title = models.CharField(max_length=100)
