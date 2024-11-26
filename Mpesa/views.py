@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from .import utils
+from . import utils
 
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
@@ -12,16 +12,21 @@ from .core import MpesaClient
 from decouple import config
 
 cl = MpesaClient()
-stk_push_callback_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+stk_push_callback_url = (
+    "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+)
+
 
 # Index view
 def index(request):
-    return HttpResponse('Welcome to the home of Daraja APIs')
+    return HttpResponse("Welcome to the home of Daraja APIs")
+
 
 # OAuth token success view
 def oauth_success(request):
     r = cl.access_token()
     return JsonResponse(r, safe=False)
+
 
 # Payment initiation view
 class PaymentView(APIView):
@@ -29,15 +34,18 @@ class PaymentView(APIView):
 
     def post(self, request):
         data = request.data
-        phone_number = data.get('phoneNumber')
-        amount = data.get('amount')
-        account_reference = data.get('accountReference', 'The Ivy League Beauty Shop')
-        transaction_desc = data.get('transactionDesc', 'Payment for Beauty Products')
-        callback_url = data.get('callbackUrl', stk_push_callback_url)
+        phone_number = data.get("phoneNumber")
+        amount = data.get("amount")
+        account_reference = data.get("accountReference", "The Ivy League Beauty Shop")
+        transaction_desc = data.get("transactionDesc", "Payment for Beauty Products")
+        callback_url = data.get("callbackUrl", stk_push_callback_url)
 
         # Initiate STK Push
-        response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+        response = cl.stk_push(
+            phone_number, amount, account_reference, transaction_desc, callback_url
+        )
         return Response(response)
+
 
 # M-Pesa callback handler
 class MpesaCallbackView(APIView):
@@ -47,16 +55,18 @@ class MpesaCallbackView(APIView):
         try:
             # Parse callback data
             callback_data = request.data
-            body = callback_data.get('Body', {})
-            stk_callback = body.get('stkCallback', {})
-            result_code = stk_callback.get('ResultCode')
-            result_desc = stk_callback.get('ResultDesc')
+            body = callback_data.get("Body", {})
+            stk_callback = body.get("stkCallback", {})
+            result_code = stk_callback.get("ResultCode")
+            result_desc = stk_callback.get("ResultDesc")
             merchant_request_id = stk_callback.get("MerchantRequestID")
             checkout_request_id = stk_callback.get("CheckoutRequestID")
             callback_metadata = stk_callback.get("CallbackMetadata", {}).get("Item", [])
 
             # Extract transaction details
-            transaction_details = {item['Name']: item.get('Value') for item in callback_metadata}
+            transaction_details = {
+                item["Name"]: item.get("Value") for item in callback_metadata
+            }
 
             if result_code == 0:  # Successful payment
                 receipt_number = transaction_details.get("MpesaReceiptNumber")
@@ -82,8 +92,8 @@ class MpesaCallbackView(APIView):
                 print(f"Payment failed: {result_desc}")
 
             # Respond to Safaricom
-            return Response({'Status': 'success'}, status=200)
+            return Response({"Status": "success"}, status=200)
 
         except Exception as e:
             print(f"Error processing callback: {str(e)}")
-            return Response({'error': 'Failed to process callback'}, status=500)
+            return Response({"error": "Failed to process callback"}, status=500)
