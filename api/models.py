@@ -104,29 +104,4 @@ class Hero(models.Model):
 
     def __str__(self):
         return self.title
-    
 
-class Blog(models.Model):
-    title = models.CharField(max_length=200)
-    sub_title = models.CharField(max_length=200)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    thumbnail = CloudinaryField('thumbnail')
-    modified = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        ordering = ['-modified']
-
-class TikTokSection(models.Model):
-    link = models.URLField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    caption = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.caption
-    
-    class Meta:
-        ordering = ['-created_at']
