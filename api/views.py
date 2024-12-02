@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Product, Categories, Brand, DeliveryOptions, Hero
+from .models import Product, Categories, Brand, DeliveryOptions, Hero, Blogs
 from django.db.models import Q
 from .serializers import (
     ProductSerializer,
@@ -12,6 +12,7 @@ from .serializers import (
     BrandsSerializer,
     DeliveryOptionsSerializer,
     HeroSerializer,
+    BlogsSerializer,
 )
 import random
 
@@ -138,4 +139,12 @@ class HeroView(APIView):
     def get(self, request):
         hero_section_data = Hero.objects.all()
         serializer = HeroSerializer(hero_section_data, many=True)
+        return Response(serializer.data)
+    
+class BlogsView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        blogs = Blogs.objects.all()
+        serializer = BlogsSerializer(blogs, many=True)
         return Response(serializer.data)
