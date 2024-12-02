@@ -117,6 +117,7 @@ class Blog(models.Model):
         choices=[('image', 'Image'), ('video', 'Video')], 
         default='image'
     )
+    video_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title
