@@ -96,6 +96,7 @@ class Hero(models.Model):
     image = CloudinaryField("image")
     title = models.CharField(max_length=100)
     sub_title = models.CharField(max_length=100)
+    url = models.URLField(max_length=200)
 
     class Meta:
         verbose_name = "Hero"
@@ -103,3 +104,22 @@ class Hero(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Blog(models.Model):
+    title = models.CharField(max_length=200)
+    sub_title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateField(auto_now_add=True)
+    thumbnail = CloudinaryField('thumbnail')
+    media_type = models.CharField(
+        max_length=10, 
+        choices=[('image', 'Image'), ('video', 'Video')], 
+        default='image'
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-created_at']

@@ -12,4 +12,5 @@ urlpatterns = [
     path("delivery-options/", views.DeliveryOptionsView.as_view()),
     path("promotional/", views.PromotionalProductsView.as_view()),
     path("hero/", views.HeroView.as_view()),
+    path("blogs/", views.BlogView.as_view()),
 ]
