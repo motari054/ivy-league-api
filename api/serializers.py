@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Product, Categories, User, Brand, DeliveryOptions, Hero, Blog
+from .models import Product, Categories, User, Brand, DeliveryOptions, Hero
 
 
 class CategoriesSerializer(ModelSerializer):
@@ -50,7 +50,4 @@ class HeroSerializer(ModelSerializer):
         model = Hero
         fields = "__all__"
 
-class BlogSerializer(ModelSerializer):
-    class Meta:
-        model = Blog
-        fields = "__all__"
+
