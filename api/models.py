@@ -108,7 +108,7 @@ class Hero(models.Model):
 class Blogs(models.Model):
     title = models.CharField(max_length=200)
     sub_title = models.CharField(max_length=200)
-    thumbnail = CloudinaryField('thumbnails')
+    thumbnail = CloudinaryField('image')
     created_at = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
