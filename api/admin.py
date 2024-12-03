@@ -20,3 +20,4 @@ admin.site.register(Deliveries)
 admin.site.register(Hero)
 admin.site.register(Blogs)
 admin.site.register(TikTok)
+
