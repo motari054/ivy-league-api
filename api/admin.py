@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import User, Product, Categories, Brand, DeliveryOptions, Deliveries, Hero, Blogs, TikTok
+from .models import (
+    User,
+    Product,
+    Categories,
+    Brand,
+    DeliveryOptions,
+    Deliveries,
+    Hero,
+    Blogs,
+    TikTok,
+)
 
 admin.site.register(User)
 admin.site.register(DeliveryOptions)

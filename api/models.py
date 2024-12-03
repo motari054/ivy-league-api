@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
 from django.core.validators import MinValueValidator, MaxValueValidator
-import requests
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 
 class User(AbstractUser):
@@ -121,26 +118,15 @@ class Blogs(models.Model):
     class Meta:
         verbose_name = "Blog"
         verbose_name_plural = "Blogs"
-        
+
 class TikTok(models.Model):
-    video_url = models.URLField(max_length=355)
-    added_on = models.DateTimeField(auto_now_add=True)
-    caption = models.CharField(max_length=300, blank=True, null=True)
-    embedded_html = models.TextField(blank=True, null=True)
+    video = CloudinaryField("video")
+    caption = models.CharField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.caption if self.caption else "TikTok Video"
-
+        return self.caption
+    
     class Meta:
         verbose_name = "TikTok"
         verbose_name_plural = "TikTok"
-
-@receiver(pre_save, sender=TikTok)
-def fetch_oembed_data(sender, instance, **kwargs):
-    if instance.video_url:
-        oembed_url = f"https://www.tiktok.com/oembed?url={instance.video_url}"
-        response = requests.get(oembed_url)
-        if response.status_code == 200:
-            oembed_data = response.json()
-            instance.embedded_html = oembed_data.get('html', '')
-            instance.caption = oembed_data.get('title', '')
