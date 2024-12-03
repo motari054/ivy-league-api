@@ -119,14 +119,15 @@ class Blogs(models.Model):
         verbose_name = "Blog"
         verbose_name_plural = "Blogs"
 
+
 class TikTok(models.Model):
-    video = CloudinaryField("video")
+    video = CloudinaryField("video", resource_type="video")
     caption = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.caption
-    
+
     class Meta:
         verbose_name = "TikTok"
         verbose_name_plural = "TikTok"
