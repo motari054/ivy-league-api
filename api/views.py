@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Product, Categories, Brand, DeliveryOptions, Hero, Blogs
+from .models import Product, Categories, Brand, DeliveryOptions, Hero, Blogs, TikTok
 from django.db.models import Q
 from .serializers import (
     ProductSerializer,
@@ -13,6 +13,7 @@ from .serializers import (
     DeliveryOptionsSerializer,
     HeroSerializer,
     BlogsSerializer,
+    TikTokSerializer,
 )
 import random
 
@@ -145,6 +146,15 @@ class BlogsView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        blogs = Blogs.objects.all()
+        blogs = Blogs.objects.all().order_by('-modified')
         serializer = BlogsSerializer(blogs, many=True)
+        return Response(serializer.data)
+    
+class TikTokView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        videos = TikTok.objects.all().order_by('-added_on')
+        serializer = TikTokSerializer(videos, many=True)
         return Response(serializer.data)

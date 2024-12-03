@@ -118,5 +118,16 @@ class Blogs(models.Model):
     class Meta:
         verbose_name = "Blog"
         verbose_name_plural = "Blogs"
+        
 
+class TikTok(models.Model):
+    video_link = models.URLField(max_length=355)
+    added_on = models.DateTimeField(auto_now_add=True)
+    caption = models.CharField(max_length=300)
 
+    def __st__(self):
+        return self.caption
+    
+    class Meta:
+        verbose_name = "TikTok"
+        verbose_name_plural = "TikTok"
