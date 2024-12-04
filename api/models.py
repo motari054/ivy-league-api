@@ -38,7 +38,6 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand
 
-
 class Product(models.Model):
     name = models.CharField(max_length=100)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name="products")
@@ -53,18 +52,22 @@ class Product(models.Model):
         max_digits=3,
         decimal_places=1,
         default=4,
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
+        validators=[
+            MinValueValidator(1.1),
+            MaxValueValidator(5.0),
+        ],
     )
     image = CloudinaryField("image")
     added_at = models.DateTimeField(auto_now=True)
     sold = models.BooleanField(default=False)
     on_offer = models.BooleanField(default=False)
-    discount = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
+    discount = models.IntegerField(
         null=True,
         blank=True,
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[
+            MinValueValidator(1.0),
+            MaxValueValidator(90.0),
+        ],
     )
     discount_end_date = models.DateTimeField(null=True, blank=True)
 

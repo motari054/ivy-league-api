@@ -54,7 +54,7 @@ class ProductsList(APIView):
                 products = products.filter(brand__id__in=brand_ids)
         
         if on_offer is not None:
-            products = products.filter(on_offer=on_offer.lower()== "true")
+            products = products.filter(on_offer=on_offer.lower() == "true")
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

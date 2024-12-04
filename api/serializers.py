@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import (
     Product,
     Categories,
@@ -24,12 +25,19 @@ class BrandsSerializer(ModelSerializer):
 
 
 class ProductSerializer(ModelSerializer):
-    category = CategoriesSerializer()
-    brand = BrandsSerializer()
-
+    effective_price = serializers.SerializerMethodField()
+    
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = [
+            "id", "name", "brand", "category", "price", "quantity", "details",
+            "how_to_use", "rating", "image", "added_at", "sold", "on_offer",
+            "discount", "discount_end_date", "effective_price"
+        ]
+    
+    def get_effective_price(self, obj):
+        return obj.effective_price()
+
 
 
 class UserSerializer(ModelSerializer):
