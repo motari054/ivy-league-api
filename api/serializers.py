@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Product, Categories, User, Brand, DeliveryOptions, Hero, Blogs, TikTok
+from .models import Product, Categories, User, Brand, DeliveryOptions, Hero, Blogs
 
 
 class CategoriesSerializer(ModelSerializer):
@@ -20,17 +20,7 @@ class ProductSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = [
-            "id",
-            "name",
-            "details",
-            "how_to_use",
-            "price",
-            "rating",
-            "image",
-            "category",
-            "brand",
-        ]
+        fields = "__all__"
 
 
 class UserSerializer(ModelSerializer):
@@ -55,7 +45,5 @@ class BlogsSerializer(ModelSerializer):
         model = Blogs
         fields = "__all__"
 
-class TikTokSerializer(ModelSerializer):
-    class Meta:
-        model = TikTok
-        fields = "__all__"
+
+

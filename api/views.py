@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Product, Categories, Brand, DeliveryOptions, Hero, Blogs, TikTok
+from .models import Product, Categories, Brand, DeliveryOptions, Hero, Blogs
 from django.db.models import Q
 from .serializers import (
     ProductSerializer,
@@ -13,7 +13,6 @@ from .serializers import (
     DeliveryOptionsSerializer,
     HeroSerializer,
     BlogsSerializer,
-    TikTokSerializer
 )
 import random
 
@@ -32,6 +31,7 @@ class ProductsList(APIView):
         query = request.GET.get("query", "")
         category_ids = request.GET.get("category_ids", "")
         brand_ids = request.GET.get("brand_ids", "")
+        on_offer = request.GET.get("on_offer", None)
 
         products = Product.objects.all()
 
@@ -51,6 +51,9 @@ class ProductsList(APIView):
             brand_ids = [brand_id for brand_id in brand_ids if brand_id.isdigit()]
             if brand_ids:
                 products = products.filter(brand__id__in=brand_ids)
+        
+        if on_offer is not None:
+            products = products.filter(on_offer=on_offer.lower()== "true")
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
@@ -148,12 +151,4 @@ class BlogsView(APIView):
     def get(self, request):
         blogs = Blogs.objects.all().order_by('-modified')
         serializer = BlogsSerializer(blogs, many=True)
-        return Response(serializer.data)
-    
-class TikTokView(APIView):
-    permission_classes = [AllowAny]
-
-    def get(request, self):
-        videos = TikTok.objects.all().order_by('-created_at')
-        serializer = TikTokSerializer(videos, many=True)
         return Response(serializer.data)

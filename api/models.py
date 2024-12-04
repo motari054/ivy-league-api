@@ -58,6 +58,21 @@ class Product(models.Model):
     image = CloudinaryField("image")
     added_at = models.DateTimeField(auto_now=True)
     sold = models.BooleanField(default=False)
+    on_offer = models.BooleanField(default=False)
+    discount = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
+    discount_end_date = models.DateTimeField(null=True, blank=True)
+
+    def effective_price(self):
+        """Calculate the effective price after discount."""
+        if self.discount:
+            return self.price * (1 - (self.discount / 100))
+        return self.price
 
     def __str__(self):
         return self.name
