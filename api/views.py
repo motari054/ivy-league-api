@@ -158,6 +158,6 @@ class TikTokView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        videos = TikTok.objects.all().order_by['-created-at']
+        videos = TikTok.objects.all().order_by('-created_at')
         serializer = TikTokSerializer(videos, many=True)
         return Response(serializer.data)
