@@ -26,19 +26,23 @@ class BrandsSerializer(ModelSerializer):
 
 class ProductSerializer(ModelSerializer):
     effective_price = serializers.SerializerMethodField()
+    save_amount_ksh = serializers.SerializerMethodField()
     
     class Meta:
         model = Product
         fields = [
             "id", "name", "brand", "category", "price", "quantity", "details",
             "how_to_use", "rating", "image", "added_at", "sold", "on_offer",
-            "discount", "discount_end_date", "effective_price"
+            "discount", "discount_end_date", "effective_price", "save_amount_ksh"
         ]
     
     def get_effective_price(self, obj):
         return obj.effective_price()
-
-
+    
+    def get_save_amount_ksh(self, obj):
+        if obj.discount:
+            return obj.price - obj.effective_price()
+        return 0
 
 class UserSerializer(ModelSerializer):
     class Meta:
