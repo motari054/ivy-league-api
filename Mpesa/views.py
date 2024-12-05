@@ -16,21 +16,17 @@ stk_push_callback_url = (
     "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
 )
 
-
-# Index view
 def index(request):
     return HttpResponse("Welcome to the home of Daraja APIs")
 
 
-# OAuth token success view
 def oauth_success(request):
     r = cl.access_token()
     return JsonResponse(r, safe=False)
 
 
-# Payment initiation view
 class PaymentView(APIView):
-    permission_classes = [AllowAny]  # Allow any user (authenticated or not)
+    permission_classes = [AllowAny]
 
     def post(self, request):
         data = request.data
@@ -47,13 +43,11 @@ class PaymentView(APIView):
         return Response(response)
 
 
-# M-Pesa callback handler
 class MpesaCallbackView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         try:
-            # Parse callback data
             callback_data = request.data
             body = callback_data.get("Body", {})
             stk_callback = body.get("stkCallback", {})
@@ -63,12 +57,11 @@ class MpesaCallbackView(APIView):
             checkout_request_id = stk_callback.get("CheckoutRequestID")
             callback_metadata = stk_callback.get("CallbackMetadata", {}).get("Item", [])
 
-            # Extract transaction details
             transaction_details = {
                 item["Name"]: item.get("Value") for item in callback_metadata
             }
 
-            if result_code == 0:  # Successful payment
+            if result_code == 0:
                 receipt_number = transaction_details.get("MpesaReceiptNumber")
                 amount = transaction_details.get("Amount")
                 phone_number = transaction_details.get("PhoneNumber")
@@ -76,7 +69,6 @@ class MpesaCallbackView(APIView):
                     str(transaction_details.get("TransactionDate")), "%Y%m%d%H%M%S"
                 )
 
-                # Save transaction details to database
                 Payments.objects.create(
                     merchant_request_id=merchant_request_id,
                     checkout_request_id=checkout_request_id,
