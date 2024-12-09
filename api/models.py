@@ -124,6 +124,8 @@ class Hero(models.Model):
     def __str__(self):
         return self.title
 
+from django.utils.timezone import localtime
+
 class Blogs(models.Model):
     title = models.CharField(max_length=200)
     sub_title = models.CharField(max_length=200)
@@ -132,7 +134,8 @@ class Blogs(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        formatted_date = localtime(self.created_at).strftime("New %b %d, %Y")
+        return f"{self.title} ({formatted_date})"
     
     class Meta:
         verbose_name = "Blog"
