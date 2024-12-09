@@ -13,5 +13,6 @@ urlpatterns = [
     path("promotional/", views.PromotionalProductsView.as_view()),
     path("hero/", views.HeroView.as_view()),
     path("blogs/", views.BlogsView.as_view()),
+    path("blogs/<str:id>/", views.BlogDetailView.as_view()),
     path("tiktok/", views.TikTokView.as_view()),
 ]

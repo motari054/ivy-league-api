@@ -154,6 +154,16 @@ class BlogsView(APIView):
         serializer = BlogsSerializer(blogs, many=True)
         return Response(serializer.data)
     
+
+class BlogDetailView(APIView):
+    permission_classes = [AllowAny]
+    
+    def get(self, request, id):
+        blog = Blogs.objects.get(id=id)
+        serializer = BlogsSerializer(blog, many=False)
+        return Response(serializer.data)
+
+
 class TikTokView(APIView):
     permission_classes = [AllowAny]
 
