@@ -14,6 +14,7 @@ urlpatterns = [
     path('auth/', include('rest_framework.urls')),
     path('', include('api.urls')),
     path('mpesa/', include('Mpesa.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 

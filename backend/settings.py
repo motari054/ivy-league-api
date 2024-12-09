@@ -57,8 +57,12 @@ INSTALLED_APPS = [
     'api',
     'authentication',
     'corsheaders',
-    'Mpesa'
+    'Mpesa',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
